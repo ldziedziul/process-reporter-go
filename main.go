@@ -11,7 +11,7 @@ func run(args []string, sysOut io.Writer, sysErrOut io.Writer) error {
 	fs := flag.NewFlagSet("process-reporter", flag.ContinueOnError)
 	fs.SetOutput(sysErrOut) // Flag errors go to errOut
 
-	format := fs.String("format", "json", "Output format: json or csv")
+	format := fs.String("format", "jsn", "Output format: json or csv")
 	output := fs.String("output", "", "Optional output file name. If not set, output goes to stdout")
 
 	if err := fs.Parse(args); err != nil {
