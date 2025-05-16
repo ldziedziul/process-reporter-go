@@ -22,7 +22,7 @@ func TestSystemProcessProvider_ListProcesses_GoIsRunning(t *testing.T) {
 
 	found := false
 	for _, process := range processes {
-		if process.Name == "go" {
+		if process.Name == "go" || process.Name == "go.exe" {
 			found = true
 			break
 		}
