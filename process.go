@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/shirou/gopsutil/v3/process"
+	"math"
 )
 
 type ProcessInfo struct {
@@ -14,6 +15,11 @@ type ProcessInfo struct {
 
 type ProcessProvider interface {
 	ListProcesses() ([]ProcessInfo, error)
+}
+
+func round(val float64, precision int) float64 {
+	pow := math.Pow(10, float64(precision))
+	return math.Round(val*pow) / pow
 }
 
 type SystemProcessProvider struct{}
@@ -33,6 +39,7 @@ func (p *SystemProcessProvider) ListProcesses() ([]ProcessInfo, error) {
 		name, _ := proc.Name()
 		user, _ := proc.Username()
 		cpu, _ := proc.CPUPercent()
+		cpu = round(cpu, 2)
 		memInfo, _ := proc.MemoryInfo()
 		memBytes := uint64(0)
 		if memInfo != nil {
