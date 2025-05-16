@@ -1,0 +1,17 @@
+[windows]
+10.211.55.3
+
+[linux]
+10.211.55.5
+
+[macos]
+localhost
+
+[macos:vars]
+ansible_connection=local
+
+[windows:vars]
+ansible_connection=winrm
+ansible_winrm_transport=ntlm
+ansible_winrm_server_cert_validation=ignore
+ansible_become=false
