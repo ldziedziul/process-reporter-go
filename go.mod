@@ -1,4 +1,4 @@
-module process-reporter-go
+module process-reporter
 
 go 1.24.3
 
