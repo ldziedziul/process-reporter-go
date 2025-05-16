@@ -1,0 +1,19 @@
+- name: Ensure installation directory exists (Linux/macOS)
+  file:
+    path: '{{ install_path | dirname }}'
+    state: directory
+    mode: '0755'
+
+- name: Download latest process-reporter binary (Linux/macOS)
+  get_url:
+    url: "{{ release_url }}"
+    dest: "{{ install_path }}"
+    mode: '0755'
+
+- name: Run process-reporter (Linux/macOS)
+  command: "{{ install_path }} --format csv"
+  register: run_result
+
+- name: Show run result (Linux/macOS)
+  debug:
+    var: run_result.stdout

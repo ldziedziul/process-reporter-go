@@ -1,0 +1,18 @@
+- name: Ensure installation directory exists (Windows)
+  win_file:
+    path: "{{ install_path | win_dirname }}"
+    state: directory
+
+- name: Download latest process-reporter binary (Windows)
+  win_get_url:
+    url: "{{ release_url }}"
+    dest: "{{ install_path }}"
+    force: true
+
+- name: Run process-reporter (Windows)
+  win_command: "{{ install_path }} --format csv"
+  register: run_result
+
+- name: Show run result (Windows)
+  debug:
+    var: run_result.stdout

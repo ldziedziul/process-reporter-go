@@ -1,0 +1,11 @@
+- name: Fail if platform unsupported
+  fail:
+    msg: "Unsupported OS-Architecture: {{ platform }}"
+  when: platform not in ["linux-amd64", "linux-arm64", "darwin-amd64", "darwin-arm64", "windows-amd64", "windows-arm64"]
+
+- name: Set platform-specific task file
+  set_fact:
+    platform_task_file: "{{ 'windows.yml' if system_family == 'windows' else 'linux_macos.yml' }}"
+
+- name: Include platform-specific tasks
+  include_tasks: "{{ platform_task_file }}"

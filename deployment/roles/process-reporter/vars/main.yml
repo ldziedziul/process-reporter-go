@@ -1,0 +1,20 @@
+ansible_password: '{{ lookup("env", "ANSIBLE_PASSWORD") }}'
+ansible_user: '{{ lookup("env", "USER") }}'
+system_family: >-
+  {{
+    'windows' if ansible_os_family == 'Windows'
+    else ansible_system | lower
+  }}
+system_arch: >-
+  {{
+    'arm64' if (ansible_architecture | lower) is search('arm') or
+    (ansible_architecture | lower) is search('aarch')
+    else 'amd64'
+  }}
+platform: "{{ system_family }}-{{ system_arch }}"
+release_filename: "process-reporter-{{ platform }}{% if system_family == 'windows' %}.exe{% endif %}"
+release_base_url: "https://github.com/ldziedziul/process-reporter-go/releases/latest/download"
+release_url: "{{ release_base_url }}/{{ release_filename }}"
+install_path_linux_macos: "/usr/local/bin/process-reporter"
+install_path_windows: 'C:\bin\process-reporter.exe'
+install_path: "{{ install_path_windows if system_family == 'windows' else install_path_linux_macos }}"
