@@ -45,7 +45,7 @@ Place the binary in any folder and run it directly—no setup needed.
 Run the binary with `--help` to see available options:
 
 ```bash
-./processreporter --help
+process-reporter --help
 Usage of process-reporter:
   -format string
         Output format: json or csv (default "json")
@@ -57,7 +57,7 @@ Usage of process-reporter:
 ### Basic command to JSON report 
 
 ```bash
-./processreporter --format json
+process-reporter --format json
 ```
 
 Sample output:
@@ -90,7 +90,7 @@ Sample output:
 ### Basic command to CSV report 
 
 ```bash
-./processreporter --format csv
+process-reporter --format csv
 ```
 
 Sample output:
@@ -117,7 +117,7 @@ This guide shows how to visualize `process-reporter` output using different tool
 1. Run the tool with CSV output:
 
    ```bash
-   ./process-reporter --format csv --output report.csv
+   process-reporter --format csv --output report.csv
    ```
 
    This creates `report.csv`
