@@ -99,8 +99,6 @@ Sample output:
 10680,OpenConsole.exe,UKASZDZIEDZE947\luk,3.04,12496896
 10708,RuntimeBroker.exe,UKASZDZIEDZE947\luk,0.02,30957568
 ```
----
-Based on your notes and the task description from the uploaded PDF, here’s a well-structured write-up summarizing your approach, learnings, and decisions. This can be used in your README, blog post, or evaluation documentation:
 
 ---
 
