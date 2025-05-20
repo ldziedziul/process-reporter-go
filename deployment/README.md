@@ -100,18 +100,3 @@ Or limit deployment to specific host/group:
 If the OS/arch combo isn't supported, the playbook fails with an explicit error.
 
 ---
-
-## What the Playbook Does
-
-For each host:
-
-1. Detects the OS and architecture.
-2. Validates if the platform is supported.
-3. Downloads latest release from https://github.com/ldziedziul/process-reporter-go/releases
-4. Installs the binary:
-    * Linux/macOS: `/usr/local/bin`
-    * Windows: `C:\bin`
-5. Runs the binary: `process-reporter --format csv`
-6. Displays the output
-
----
