@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/csv"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io"
 	"strconv"
@@ -47,6 +46,6 @@ func getFormatter(format string) (Formatter, error) {
 	case "csv":
 		return &CSVFormatter{}, nil
 	default:
-		return nil, errors.New("unsupported format")
+		return nil, fmt.Errorf("unsupported format: %v", format)
 	}
 }
