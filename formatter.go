@@ -26,15 +26,21 @@ func (c *CSVFormatter) Format(processes []ProcessInfo, w io.Writer) error {
 	writer := csv.NewWriter(w)
 	defer writer.Flush()
 
-	writer.Write([]string{"PID", "Name", "User", "CPU (%)", "Memory (Bytes)"})
+	err := writer.Write([]string{"PID", "Name", "User", "CPU (%)", "Memory (Bytes)"})
+	if err != nil {
+		return fmt.Errorf("failed to write CSV header: %w", err)
+	}
 	for _, proc := range processes {
-		writer.Write([]string{
+		err := writer.Write([]string{
 			strconv.Itoa(int(proc.PID)),
 			proc.Name,
 			proc.Username,
 			fmt.Sprintf("%.2f", proc.CPUPercent),
 			strconv.FormatUint(proc.MemBytes, 10),
 		})
+		if err != nil {
+			return fmt.Errorf("failed to write CSV record for PID %d: %w", proc.PID, err)
+		}
 	}
 	return nil
 }
