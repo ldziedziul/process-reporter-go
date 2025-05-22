@@ -1,6 +1,6 @@
 module process-reporter
 
-go 1.24.3
+go 1.24.2
 
 require github.com/shirou/gopsutil/v3 v3.24.5
 
