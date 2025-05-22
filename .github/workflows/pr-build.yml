@@ -29,3 +29,9 @@ jobs:
         uses: securego/gosec@v2.22.4
         with:
           args: ./...
+
+      - name: Run golangci-lint
+        if: matrix.os == 'ubuntu-latest' && !cancelled()
+        uses: golangci/golangci-lint-action@v8
+        with:
+          args: --timeout 5m

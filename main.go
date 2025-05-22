@@ -32,7 +32,12 @@ func run(args []string, sysOut io.Writer, sysErrOut io.Writer) error {
 		if err != nil {
 			return fmt.Errorf("failed to create output file: %v", err)
 		}
-		defer file.Close()
+		defer func(file *os.File) {
+			err := file.Close()
+			if err != nil {
+				fmt.Println(fmt.Errorf("error closing file: %w", err))
+			}
+		}(file)
 		out = file
 	}
 
@@ -47,7 +52,10 @@ func run(args []string, sysOut io.Writer, sysErrOut io.Writer) error {
 	}
 
 	if *output != "" {
-		fmt.Fprintf(sysOut, "Report saved successfully in %s format to %s\n", *format, *output)
+		_, err := fmt.Fprintf(sysOut, "Report saved successfully in %s format to %s\n", *format, *output)
+		if err != nil {
+			return fmt.Errorf("failed to write to output: %w", err)
+		}
 	}
 
 	return nil
@@ -55,7 +63,10 @@ func run(args []string, sysOut io.Writer, sysErrOut io.Writer) error {
 
 func main() {
 	if err := run(os.Args[1:], os.Stdout, os.Stderr); err != nil {
-		fmt.Fprintln(os.Stderr, err)
+		_, err := fmt.Fprintln(os.Stderr, err)
+		if err != nil {
+			fmt.Println(fmt.Errorf("error writing to stderr: %w", err))
+		}
 		os.Exit(1)
 	}
 }
