@@ -25,6 +25,7 @@ jobs:
         run: go test -v ./...
 
       - name: Run GoSec Security Scanner
+        if: matrix.os == 'ubuntu-latest'
         uses: securego/gosec@v2.22.4
         with:
           args: ./...
